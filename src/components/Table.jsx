@@ -13,6 +13,7 @@ import {
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 export default function DataTable() {
+  
   const [data, setData] = useState([]);
   const [domainID, setDomainID] = useState("");
   const [domainData, setDomainData] = useState([]);

@@ -42,6 +42,19 @@ const Navbar = () => {
     }));
   };
 
+  const getDomain = useCallback(async () => {
+    try {
+      await fetch(`${baseURL}/domain/get-domain`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (err) {
+      console.error("Error fetching domains:", err);
+    }
+  }, []);
+
   const handleAddDomain = useCallback(async () => {
     try {
       console.log(requestData);
@@ -55,11 +68,12 @@ const Navbar = () => {
 
       console.log(response);
       // Handle response if needed
+      getDomain();
     } catch (error) {
       console.error("Error adding domain:", error);
       alert(error);
     }
-  }, [requestData]);
+  }, [requestData, getDomain]);
 
   return (
     <>
