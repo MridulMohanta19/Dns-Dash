@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "DNS Dashboard",
+  "name": "DNS dashboard using Route 53(AWS)",
   "icons": [
     {
       "src": "favicon.ico",
