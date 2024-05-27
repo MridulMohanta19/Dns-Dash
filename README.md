@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# DNS Dashboard Front End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the DNS Dashboard Front End! This project provides a user-friendly interface for managing DNS records and configurations. Whether you're a seasoned network administrator or a newcomer to DNS management, this dashboard aims to simplify the process of handling your domain's DNS settings.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Intuitive Interface**: The dashboard offers a clean and easy-to-navigate interface, making it simple for users to add, edit, and remove DNS records.
+- **Real-time Updates**: Changes made to DNS records are reflected instantly, ensuring that your DNS configurations are always up to date.
+- **Multiple DNS Providers**: This dashboard supports integration with various DNS service providers, allowing you to manage DNS records across different platforms from a single interface.
+- **Record Types**: Support for different types of DNS records such as A, AAAA, CNAME, MX, TXT, etc., enabling comprehensive management of your domain's DNS settings.
+- **Bulk Operations**: Perform bulk operations such as importing/exporting DNS records, making it efficient to manage large sets of records.
+- **Security**: Built-in security measures to protect sensitive DNS data, including role-based access control and encryption of communication between the front end and backend.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To use the DNS Dashboard Front End, follow these steps:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Prerequisites**: Ensure you have Node.js installed on your system.
 
-### `npm test`
+2. **Clone the Repository**: Clone this repository to your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **git clone https://github.com/MridulMohanta19/dns-dashboard.git**
 
-### `npm run build`
+4.  **Install Dependencies**: Navigate to the project directory and install the necessary dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5.  **Configuration**: Update the configuration file (`config.js`) with your DNS provider's API credentials and any other required settings.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+6.  **Run the Application**: Start the development server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
