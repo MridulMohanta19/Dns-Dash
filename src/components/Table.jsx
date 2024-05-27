@@ -8,7 +8,11 @@ import {
   Typography,
   InputLabel,
   InputBase,
+  TextField,
+  Box,
+  IconButton
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -18,6 +22,7 @@ export default function DataTable() {
   const [domainID, setDomainID] = useState("");
   const [domainData, setDomainData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [newRecord, setNewRecord] = useState({ type: "", name: "", value: "", ttl: "" });
 
   const handleChange = (event) => {
     setDomainID(event.target.value);
@@ -60,6 +65,7 @@ export default function DataTable() {
           ", "
         ),
         ttl: record.TTL,
+        recordId: record.RecordId, // Assuming record has a unique identifier
       }));
       setData(rows);
     } catch (error) {
@@ -92,16 +98,77 @@ export default function DataTable() {
     }
   }, [domainID, getDomain]);
 
+  const handleDeleteRecord = useCallback(async (recordId) => {
+    try {
+      const response = await fetch(`${baseURL}/domain/delete-record`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: domainID,
+          recordId,
+        }),
+      });
+
+      if (response.ok) {
+        // Refresh the records after deletion
+        getRecords();
+      } else {
+        console.error("Error deleting record:", response.statusText);
+      }
+    } catch (err) {
+      console.error("Error deleting record:", err);
+    }
+  }, [domainID, getRecords]);
+
+  const handleAddRecord = useCallback(async () => {
+    try {
+      const response = await fetch(`${baseURL}/domain/add-record`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: domainID,
+          record: newRecord,
+        }),
+      });
+
+      if (response.ok) {
+        // Refresh the records after adding a new one
+        getRecords();
+        setNewRecord({ type: "", name: "", value: "", ttl: "" });
+      } else {
+        console.error("Error adding record:", response.statusText);
+      }
+    } catch (err) {
+      console.error("Error adding record:", err);
+    }
+  }, [domainID, newRecord, getRecords]);
+
   const filteredData = data.filter((row) =>
     row.value.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const columns = [
-    { field: "name", headerName: "Name", width: 300 },
+    { field: "name", headerName: "Name", width: 250 },
     { field: "type", headerName: "Type", width: 130 },
-    { field: "value", headerName: "Value", width: 550 },
+    { field: "value", headerName: "Value", width: 350 },
     { field: "ttl", headerName: "TTL", width: 100 },
-    //   {field :'action', headerName: 'ACTION', width: 100}
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => (
+        <IconButton
+          color="secondary"
+          onClick={() => handleDeleteRecord(params.row.recordId)}
+        >
+          <DeleteIcon />
+        </IconButton>
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -113,7 +180,7 @@ export default function DataTable() {
   }, [getDomain]);
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 800, width: "100%" }}>
       <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: 20 }}>
         <FormControl variant="standard" sx={{ flexBasis: "70%", m: 1 }}>
           <InputLabel id="demo-simple-select-standard-label">
@@ -160,6 +227,64 @@ export default function DataTable() {
           }}
         />
       </div>
+      <Box
+        component="form"
+        sx={{ mt: 4, display: "flex", justifyContent: "space-around", alignItems: "center" }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleAddRecord();
+        }}
+      >
+        <Typography variant="h5" sx={{ flexBasis: "10%" }}>Add DNS Record</Typography>
+        <FormControl variant="standard" sx={{ width: "15%" }}>
+          <InputLabel id="record-type-label">Type</InputLabel>
+          <Select
+            labelId="record-type-label"
+            id="record-type"
+            value={newRecord.type}
+            onChange={(e) => setNewRecord({ ...newRecord, type: e.target.value })}
+            fullWidth
+          >
+            {/* Add all necessary DNS record types here */}
+            <MenuItem value="A">A</MenuItem>
+            <MenuItem value="AAAA">AAAA</MenuItem>
+            <MenuItem value="CNAME">CNAME</MenuItem>
+            <MenuItem value="MX">MX</MenuItem>
+            <MenuItem value="TXT">TXT</MenuItem>
+            {/* Add other DNS record types as needed */}
+          </Select>
+        </FormControl>
+        <TextField
+          label="Name"
+          variant="standard"
+          sx={{ width: "15%" }}
+          value={newRecord.name}
+          onChange={(e) => setNewRecord({ ...newRecord, name: e.target.value })}
+        />
+        <TextField
+          label="Value"
+          variant="standard"
+          sx={{ width: "15%" }}
+          value={newRecord.value}
+          onChange={(e) => setNewRecord({ ...newRecord, value: e.target.value })}
+        />
+        <TextField
+          label="TTL"
+          variant="standard"
+          type="number"
+          sx={{ width: "15%" }}
+          value={newRecord.ttl}
+          onChange={(e) => setNewRecord({ ...newRecord, ttl: e.target.value })}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ width: "10%" }}
+        >
+          Add Record
+        </Button>
+      </Box>
       <div style={{ margin: 30 }}>
         <Typography
           variant="h2"
